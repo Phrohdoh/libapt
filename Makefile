@@ -7,4 +7,4 @@ build:
 test:
 	@cargo clippy --verbose -- -D warnings || echo "clippy not installed: skipping lints"
 	@cargo test --release --verbose
-	@cargo bench --release --verbose 
+	@cargo bench --verbose
