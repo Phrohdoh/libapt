@@ -1,0 +1,7 @@
+[package]
+name = "sageapt"
+version = "0.1.0"
+authors = ["Taryn Hill <taryn@phrohdoh.com>"]
+
+[dependencies]
+libapt = { path = "../../" }

@@ -43,7 +43,7 @@ enum_from_primitive! {
         MBLength = 0x31, //MB is multibyte strings
         CharToAscii = 0x32,
         AsciiToChar = 0x33,
-        GetTIMER = 0x34,
+        GetTimer = 0x34,
         MBSubString = 0x35, //MB is multibyte strings
         MBOrd = 0x36, //MB is multibyte strings
         MBChar = 0x37, //MB is multibyte strings
@@ -141,16 +141,53 @@ enum_from_primitive! {
     }
 }
 
+pub fn requires_alignment(action: &Action) -> bool {
+    use self::Action::*;
+    match *action {
+        GotoFrame |
+        DefineFunction |
+        DefineFunction2 |
+        ConstantPool |
+        BranchIfTrue |
+        PushData |
+        GetUrl |
+        GotoLabel |
+        SetRegister |
+        EA_PushString |
+        EA_GetStringVar |
+        EA_GetStringMember => true,
+        _ => false,
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::Action;
-
     extern crate num;
     use self::num::FromPrimitive;
 
     #[test]
     fn ea_push_one_eq_0x5a() {
+        use super::Action;
         assert_eq!(Action::from_u8(0x5a), Some(Action::EA_PushOne));
         assert_eq!(0x5a, Action::EA_PushOne as usize);
+    }
+
+    #[test]
+    fn requires_alignment() {
+        use super::Action::*;
+        for action in &[GotoFrame,
+                        DefineFunction,
+                        DefineFunction2,
+                        ConstantPool,
+                        BranchIfTrue,
+                        PushData,
+                        GetUrl,
+                        GotoLabel,
+                        SetRegister,
+                        EA_PushString,
+                        EA_GetStringVar,
+                        EA_GetStringMember] {
+            assert_eq!(super::requires_alignment(action), true);
+        }
     }
 }
