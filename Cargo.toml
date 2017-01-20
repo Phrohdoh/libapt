@@ -1,0 +1,13 @@
+[package]
+name = "libapt"
+version = "0.1.0"
+license = "MIT"
+authors = ["Taryn Hill <taryn@phrohdoh.com>"]
+
+[dependencies]
+enum_primitive = "0.1"
+num = "0.1"
+clippy = { version = "*", optional = true }
+
+[features]
+default = []
