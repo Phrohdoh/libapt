@@ -5,3 +5,4 @@ authors = ["Taryn Hill <taryn@phrohdoh.com>"]
 
 [dependencies]
 libapt = { path = "../../" }
+clap = "2.20"
